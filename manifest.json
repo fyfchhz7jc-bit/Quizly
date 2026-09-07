@@ -1,0 +1,9 @@
+{
+  "name": "Quizly — Snap. Learn. Succeed.",
+  "short_name": "Quizly",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080b20",
+  "theme_color": "#090d24",
+  "icons": []
+}

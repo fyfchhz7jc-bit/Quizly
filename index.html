@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d24">
+<link rel="manifest" href="manifest.json">
+<title>Quizly — Snap. Learn. Succeed.</title>
+<style>
+:root{--bg:#080b20;--card:#111735;--card2:#171d45;--text:#f7f7ff;--muted:#aab0d0;--purple:#7c4dff;--blue:#4f8cff;--green:#35d39a;--danger:#ff6685}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#080b20,#0d1230);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:92px}.top{padding:22px 20px 8px;display:flex;justify-content:space-between;align-items:center}.brand{font-weight:850;font-size:27px;letter-spacing:-1px}.spark{color:#a66cff}.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#7c4dff,#4f8cff);display:grid;place-items:center;font-weight:800}
+main{padding:12px 18px}.eyebrow{color:#9da6ce;font-size:13px}.hero h1{font-size:29px;margin:5px 0}.hero p{color:var(--muted);margin-top:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:rgba(17,23,53,.94);border:1px solid #252d59;border-radius:20px;padding:17px;box-shadow:0 12px 30px #0003}.action{min-height:140px;cursor:pointer;transition:.15s}.action:active{transform:scale(.98)}.icon{font-size:25px;margin-bottom:15px}.action b{display:block;font-size:16px}.action span{display:block;color:var(--muted);font-size:12px;margin-top:5px;line-height:1.35}
+.section{margin:24px 0 12px;font-size:17px}.progressCard{display:flex;align-items:center;gap:15px}.ring{width:70px;height:70px;border-radius:50%;background:conic-gradient(var(--green) 0 85%,#293153 85%);display:grid;place-items:center}.ring:after{content:"";width:54px;height:54px;border-radius:50%;background:#111735;position:absolute}.ring strong{z-index:1}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{text-align:center}.stat b{font-size:20px}.stat small{color:var(--muted)}
+button,.btn{border:0;border-radius:14px;padding:13px 17px;background:linear-gradient(135deg,var(--purple),#5f5cff);color:white;font-weight:750;cursor:pointer}.secondary{background:#202750}.full{width:100%}input,textarea,select{width:100%;background:#0b1029;color:white;border:1px solid #303861;border-radius:13px;padding:13px;margin:7px 0 12px;font:inherit}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:#0b1029ee;backdrop-filter:blur(18px);border-top:1px solid #252d59;display:grid;grid-template-columns:repeat(4,1fr);padding:10px 8px calc(10px + env(safe-area-inset-bottom));z-index:10}.nav{background:none;padding:7px;color:#8e96ba;font-size:11px}.nav.active{color:white}.nav div{font-size:20px;margin-bottom:3px}
+.view{display:none}.view.active{display:block}.back{background:none;padding:0 0 16px;color:#bfc5e1}.pill{display:inline-block;background:#252a58;color:#b9bfff;border-radius:99px;padding:6px 10px;font-size:11px}
+.flash{min-height:230px;display:grid;place-items:center;text-align:center;font-size:22px;font-weight:700;padding:25px}.answer{color:#aeb5d5;font-size:14px;font-weight:500}.quizQ{font-size:20px;font-weight:750;line-height:1.3}.choice{width:100%;text-align:left;margin:7px 0;background:#151c40;border:1px solid #303861}.choice.correct{border-color:var(--green);background:#123b35}.choice.wrong{border-color:var(--danger);background:#402034}
+.drop{border:2px dashed #39436f;border-radius:20px;padding:28px;text-align:center;color:var(--muted);cursor:pointer}.drop input{display:none}.preview{max-height:240px;max-width:100%;border-radius:14px;margin-top:12px}.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#1e2852;padding:12px 16px;border-radius:14px;display:none;z-index:20}
+@media(min-width:700px){body{padding:20px}.app{border:1px solid #20284e;border-radius:30px;overflow:hidden;box-shadow:0 30px 90px #0006}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand">Quizly<span class="spark">✦</span></div><div class="avatar">L</div></header>
+<main>
+<section id="home" class="view active">
+<div class="hero"><div class="eyebrow">YOUR AI STUDY COACH</div><h1>Study smarter, not harder.</h1><p>Turn notes and homework into explanations, flashcards, quizzes, and a study plan.</p></div>
+<div class="grid">
+<div class="card action" onclick="show('upload')"><div class="icon">📸</div><b>Upload Material</b><span>Photo, notes, or text → study session</span></div>
+<div class="card action" onclick="show('quiz')"><div class="icon">🧠</div><b>AI Quiz</b><span>Test what you actually know</span></div>
+<div class="card action" onclick="show('flash')"><div class="icon">🃏</div><b>Flashcards</b><span>Review key concepts quickly</span></div>
+<div class="card action" onclick="show('plan')"><div class="icon">🎯</div><b>Study Plan</b><span>Plan your week around your goals</span></div>
+</div>
+<div class="section">Your progress</div>
+<div class="card progressCard"><div class="ring"><strong>85%</strong></div><div><b>You're on a roll 🔥</b><p style="color:var(--muted);font-size:13px;margin:5px 0">Keep practicing your weak topics.</p><button class="secondary" onclick="show('progress')">View progress</button></div></div>
+<div class="section">Quick stats</div>
+<div class="card stats"><div class="stat"><b>12</b><br><small>Sessions</small></div><div class="stat"><b>85%</b><br><small>Quiz avg.</small></div><div class="stat"><b>4 🔥</b><br><small>Day streak</small></div></div>
+</section>
+
+<section id="upload" class="view">
+<button class="back" onclick="show('home')">← Back</button><h2>Upload your material</h2><p style="color:var(--muted)">Quizly will turn it into a study session.</p>
+label class="drop" for="file"><div style="font-size:34px">📷</div><b>Tap to add a photo</b><br><span>or type/paste your notes below</span><input id="file" type="file" accept="image/*" onchange="previewFile(this)"></label>
+<img id="preview" class="preview" style="display:none">
+<textarea id="notes" rows="7" placeholder="Paste notes here…&#10;&#10;Example: The American Revolution began after growing conflict between Britain and the 13 colonies."></textarea>
+<button class="full" onclick="generateSession()">✨ Generate Study Session</button>
+</section>
+
+<section id="session" class="view">
+<button class="back" onclick="show('home')">← Home</button><span class="pill">AI EXPLANATION</span><h2 id="sessionTitle">Your lesson</h2>
+<div class="card"><h3>In simple terms</h3><p id="explain">Quizly breaks your material into clear, easy-to-review ideas.</p><h3>Key takeaways</h3><ul id="takeaways"><li>Identify the main idea.</li><li>Connect important facts.</li><li>Practice recalling them without looking.</li></ul></div>
+<button class="full" style="margin-top:12px" onclick="show('flash')">Continue to Flashcards →</button>
+</section>
+
+<section id="flash" class="view">
+<button class="back" onclick="show('home')">← Home</button><span class="pill">FLASHCARDS</span><h2>Review</h2>
+<div class="card flash" id="flashcard" onclick="flipCard()"><div id="front">What is the main idea?</div><div id="back" class="answer" style="display:none">Tap to flip back.</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px"><button class="secondary" onclick="prevCard()">←</button><span id="flashCount">1 / 5</span><button onclick="nextCard()">→</button></div>
+</section>
+
+<section id="quiz" class="view">
+<button class="back" onclick="show('home')">← Home</button><span class="pill">AI QUIZ</span><h2>Test yourself</h2>
+<div class="card"><div id="quizProgress" class="eyebrow">Question 1 of 5</div><p id="question" class="quizQ"></p><div id="choices"></div><button id="nextQ" class="full" style="display:none" onclick="nextQuestion()">Next question</button></div>
+</section>
+
+<section id="plan" class="view">
+<button class="back" onclick="show('home')">← Home</button><span class="pill">PERSONALIZED</span><h2>Your study plan</h2>
+<div class="card"><h3>This week</h3><div class="card" style="margin:10px 0;background:#151c40">📐 <b>Math — Algebra</b><br><small style="color:var(--muted)">20 min · 5 topics</small></div><div class="card" style="margin:10px 0;background:#151c40">📚 <b>History — Revolution</b><br><small style="color:var(--muted)">25 min · 4 topics</small></div><div class="card" style="margin:10px 0;background:#151c40">🔬 <b>Science — Cells</b><br><small style="color:var(--muted)">20 min · 3 topics</small></div><button class="full" onclick="toast('Study plan started!')">Start Study Plan</button></div>
+</section>
+
+<section id="progress" class="view">
+<button class="back" onclick="show('home')">← Home</button><span class="pill">PROGRESS</span><h2>You're improving.</h2>
+<div class="card"><div class="stats"><div class="stat"><b>85%</b><br><small>Quiz average</small></div><div class="stat"><b>32</b><br><small>Flashcards</small></div><div class="stat"><b>3</b><br><small>Weak topics</small></div></div></div>
+<div class="section">Focus next</div><div class="card"><b>Fractions</b><p style="color:var(--muted);font-size:13px">You missed 3 questions here. Quizly recommends 10 minutes of practice.</p><button onclick="show('quiz')">Practice now</button></div>
+</section>
+</main>
+<nav class="bottom"><button class="nav active" onclick="show('home',this)"><div>⌂</div>Home</button><button class="nav" onclick="show('upload',this)"><div>＋</div>Create</button><button class="nav" onclick="show('progress',this)"><div>▥</div>Progress</button><button class="nav" onclick="show('plan',this)"><div>☰</div>Plan</button></nav>
+<div id="toast" class="toast"></div>
+</div>
+<script>
+const flashcards=[
+["What is the main idea?","The main point the material is trying to teach."],
+["What is active recall?","Trying to remember information before looking at the answer."],
+["Why use spaced repetition?","Reviewing information over increasing intervals helps strengthen memory."],
+["What is a key takeaway?","A short, important idea worth remembering."],
+["What should you do after getting a quiz question wrong?","Review the concept, then try a similar question again."]
+];
+let fi=0, flipped=false;
+function show(id,nav){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');if(nav){document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));nav.classList.add('active')}window.scrollTo(0,0);if(id==='quiz')startQuiz()}
+function previewFile(input){if(input.files[0]){const img=document.getElementById('preview');img.src=URL.createObjectURL(input.files[0]);img.style.display='block';toast('Photo added — add notes if you want more context.')}}
+function generateSession(){const text=document.getElementById('notes').value.trim();document.getElementById('sessionTitle').textContent=text?text.split(/[.!?]/)[0].slice(0,45):'Your study lesson';document.getElementById('explain').textContent=text?`Here’s a simple study version of your material: ${text.slice(0,420)}${text.length>420?'…':''}`:'Your material is ready to review. Start with the main idea, then practice recalling the details.';show('session')}
+function renderFlash(){document.getElementById('front').textContent=flashcards[fi][0];document.getElementById('back').textContent=flashcards[fi][1];document.getElementById('back').style.display=flipped?'block':'none';document.getElementById('flashCount').textContent=`${fi+1} / ${flashcards.length}`}
+function flipCard(){flipped=!flipped;renderFlash()}function nextCard(){fi=(fi+1)%flashcards.length;flipped=false;renderFlash()}function prevCard(){fi=(fi-1+flashcards.length)%flashcards.length;flipped=false;renderFlash()}
+const questions=[
+["Which study method asks you to retrieve an answer from memory?","Active recall",["Highlighting","Active recall","Copying notes","Reading twice"]],
+["What is spaced repetition designed to improve?","Long-term memory",["Typing speed","Long-term memory","Handwriting","Screen brightness"]],
+["What is the best first step when studying a new topic?","Understand the main idea",["Memorize every word","Understand the main idea","Skip difficult parts","Only read the title"]],
+["If you miss a question, what should you do?","Review and retry",["Ignore it","Review and retry","Stop studying","Guess faster"]],
+["What does Quizly turn notes into?","Interactive study tools",["Only essays","Only answers","Interactive study tools","A social feed"]]
+];let qi=0,score=0,answered=false;
+function startQuiz(){qi=0;score=0;answered=false;renderQ()}
+function renderQ(){const q=questions[qi];document.getElementById('quizProgress').textContent=`Question ${qi+1} of ${questions.length}`;document.getElementById('question').textContent=q[0];const box=document.getElementById('choices');box.innerHTML='';q[2].forEach(c=>{const b=document.createElement('button');b.className='choice';b.textContent=c;b.onclick=()=>answer(b,c,q[1]);box.appendChild(b)});document.getElementById('nextQ').style.display='none'}
+function answer(btn,c,correct){if(answered)return;answered=true;document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===correct)b.classList.add('correct')});if(c===correct){score++;btn.classList.add('correct');toast('Correct! 🎉')}else{btn.classList.add('wrong');toast('Not quite — review this topic.')}document.getElementById('nextQ').style.display='block'}
+function nextQuestion(){if(qi<questions.length-1){qi++;answered=false;renderQ()}else{toast(`Quiz complete: ${score}/${questions.length} 🎯`);show('home')}}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
+renderFlash();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
